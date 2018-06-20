@@ -1,0 +1,26 @@
+version: '3'
+services:
+    web:
+      image: nginx
+      build:
+        context: .
+        dockerfile: ./nginx/Dockerfile
+      ports:
+        - 80:80
+      depends_on:
+        - app
+    db:
+      image: postgres
+      restart: always
+      environment:
+        POSTGRES_PASSWORD: mysecretpassword
+      volumes:
+        - ./tmp/db:/var/lib/postgresql/data
+      ports:
+        - 5432
+    app:
+      build: .
+      environment:
+        - RAILS_ENV=${RAILS_ENV}
+      volumes:
+        - ./amisick:/amisick
