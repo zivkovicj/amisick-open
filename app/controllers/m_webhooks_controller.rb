@@ -95,28 +95,31 @@ class MWebhooksController < ApplicationController
       render :nothing => true
   end
 
-  def m_opened(webhook) {
-    count: webhook.size,
-    gmail_opened: webhook.gmail.size,
-    hotmail_opened: webhook.hotmail.size,
-    yahoo_opened: webhook.yahoo.size,
-    other_opened: webhook.other.size,
-  }
-  end
-
   # GET /m_webhooks
   # GET /m_webhooks.json
   def index
     @m_webhooks = MWebhook.all
-    m_opened = MWebhook.opened.desc
-    @m_opened = m_opened(m_opened)
-
-
-    @m_opened_list_of_ips = m_opened.pluck('sending_ip').uniq
-    @m_opened_list_of_esps = m_opened.ip_5.pluck('esp').uniq
+    @m_list_of_ips = @m_webhooks.pluck('sending_ip').uniq
+    
+    end_date = Date.today
+    start_date = Date.today - 10.days
+    date_range = (end_date - start_date).to_i
+    @count_array = []
+    date_range.times do |n|
+      this_date = end_date - n.days
+      today_hooks = MWebhook.where(:date_sent => this_date)
+      @count_array[n] = {:this_date => this_date}
+      @m_list_of_ips.each_with_index do |ip, index|
+        thip = today_hooks.where(:sending_ip => ip)  #Stands for "Today Hooks ip"
+        @count_array[n][index] = set_sub_count_hash(thip)
+      end
+    end
+    
+    #@m_opened_list_of_esps = m_opened.ip_5.pluck('esp').uniq
     #@all_opened = deliv_kpi(MWebhook.opened)
     #@all_opened = @m_opened.uniq {|date| date.date_event }
     @all_ip_5 = MWebhook.opened.ip_5.desc.uniq
+    @esp_list = ["gmail","hotmail","yahoo","other"] 
   end
 
   # GET /m_webhooks/1
@@ -183,4 +186,18 @@ class MWebhooksController < ApplicationController
     def m_webhook_params
       params.require(:m_webhook).permit(:event, :email, :hook_id, :camp_id, :campaign_name, :date_sent, :date_event, :ts_event, :ts_sent, :tag, :url, :sending_ip, :esp, :uer, :reason, :ts, :origin_id, :list_id)
     end
+    
+    def find_perc(a, b)
+      ((1000 * a.to_f / b).ceil / 10.0) if b != 0
+    end
+  
+    def set_sub_count_hash(thip) {
+      gmail_hooks: {opened: a = thip.gmail.opened.size, total_sent: b = thip.gmail.total_sent.size, perc_opened: find_perc(a, b)},
+      hotmail_hooks: {opened: a = thip.hotmail.opened.size, total_sent: b = thip.hotmail.total_sent.size, perc_opened: find_perc(a, b)},
+      yahoo_hooks: {opened: a = thip.yahoo.opened.size, total_sent: b = thip.yahoo.total_sent.size, perc_opened: find_perc(a, b)},
+      other_hooks: {opened: a = thip.other.opened.size, total_sent: b = thip.other.total_sent.size, perc_opened: find_perc(a, b)},
+     }
+    end
+    
+    
 end

@@ -15,6 +15,7 @@ table.minimalistBlack td, table.minimalistBlack th {
 }
 table.minimalistBlack tbody td {
   font-size: 13px;
+  text-align: center;
 }
 table.minimalistBlack thead {
   background: #CFCFCF;
@@ -27,7 +28,7 @@ table.minimalistBlack thead th {
   font-size: 15px;
   font-weight: bold;
   color: #000000;
-  text-align: left;
+  text-align: center;
 }
 table.minimalistBlack tfoot {
   font-size: 14px;
@@ -37,4 +38,32 @@ table.minimalistBlack tfoot {
 }
 table.minimalistBlack tfoot td {
   font-size: 14px;
+}
+
+
+// Cell Colors
+
+.green_3 {
+  background: #00FF00;
+}
+.green_2 {
+  background: #259966;
+}
+.green_1 {
+  background: #449999;
+}
+.yellow {
+    background: #FFFF00;
+}
+.neutral {
+  background: #FFD200;
+}
+.orange {
+  background: #FFA500;
+}
+.red_1 {
+  background: #FF5200;
+}
+.red_2 {
+  background: #FF0000;
 }

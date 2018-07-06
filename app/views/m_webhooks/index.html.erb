@@ -1,0 +1,50 @@
+
+<p id="notice"><%= notice %></p>
+
+<h1>Marketing IP Health</h1>
+<h2>
+  Key &emsp;
+  <span class="green_3">&emsp;</span>
+  <span class="green_2">&emsp;</span>
+  <span class="green_1">&emsp;</span>
+  <span class="yellow">&emsp;</span>
+  <span class="neutral">&emsp;</span>
+  <span class="orange">&emsp;</span>
+  <span class="red_1">&emsp;</span>
+  <span class="red_2">&emsp;</span>
+</h2>
+
+<% @m_list_of_ips.each_with_index do |ip, index| %>
+  <table class="minimalistBlack">
+    <thead>
+      <tr>
+        <th colspan="9"><%= ip %></th>
+      </tr>
+      <tr>
+        <th>Date</th>
+        <% @esp_list.each do |this_esp| %>
+          <th colspan="2"><%= this_esp.capitalize %></th>
+        <% end %>
+      </tr>
+    </thead>
+    
+    <% @count_array.each do |j| %>
+      <tr>
+        <td><%= j[:this_date] %></td>
+        <% @esp_list.each do |this_esp| %>
+          <td>
+            <%= j[index][:"#{this_esp}_hooks"][:opened] %> / <%= j[index][:"#{this_esp}_hooks"][:total_sent] %> 
+          </td>
+          <% perc_opened = j[index][:"#{this_esp}_hooks"][:perc_opened] %>
+          <td class="<%= set_cell_color(perc_opened) %>">
+            <strong>
+              <%= perc_opened %> %
+            </strong>
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
+  </table>
+  </br>
+<% end %>
+

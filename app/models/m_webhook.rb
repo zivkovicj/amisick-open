@@ -18,8 +18,14 @@ class MWebhook < ApplicationRecord
     "gmail", "hotmail", "yahoo" ) }
   # Ordering
   scope :desc, lambda { order("m_webhooks.date_event DESC") }
+  
   # Lists Event types => "clicked", "opened"...
+  scope :total_sent, lambda { where("m_webhooks.event LIKE ?
+    OR m_webhooks.event LIKE ?
+    OR m_webhooks.event LIKE ?",
+    "delivered", "Hard_bounce", "Soft_bounce" ) }
   scope :opened, lambda { where("m_webhooks.event LIKE ?", "opened") }
+  
   # Limiting
   scope :ten, lambda { limit (10)}
 

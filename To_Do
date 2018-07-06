@@ -1,0 +1,72 @@
+AmISick Work Proposal
+Agreed on 7/2/2018
+
+
+Dry up, extract, and refactor to optimize code
+
+Crova decksMWebhook id: 2018070, event: "opened", email: "silvanarima49@gmail.com", hook_id: 70446, camp_id: 2428, campaign_name: "ABD - Serasa Consumidor - Confilio - Ativos", date_sent: "2018-06-22 ", date_event: "2018-06-25", ts_event: 1529878441, ts_sent: 1529663137, tag: "finance", url: nil, sending_ip: nil, esp: "gmail", user: nil, reason: nil, ts: nil, origin_id: nil, list_id: nil, c reated_at: "2018-06-25 03:14:01", updated_at: "2018-06-25 03:14:01"
+
+Cannot show weight because current database doesn't have a weight attribute 
+The total is composed of "delivered" + "hard_bounce" + "soft_bounce"
+        Would "sent" work?  It could increase performance and scalability. 
+
+PROPOSED UPDATES, PHASE 1
+Create an organized view to show data results for MWebhooks
+1.	V Create fixtures and data seeds that will be used in testing and development.
+     V (These should be robust enough to continue using with many future updates.)
+2.	V Display table will organize data by date, esp, and ip 
+        V a.	default ESPs = gmail/yahoo/hotmail/others
+3.	Each row will show weight and volume
+4.	V Cells of data table will show percentage of total volume
+5.	V Cells will be color-coded based on pre-determined parameters.
+        a.	can we set the scale range from 0% to 15%?
+        b.	I plan to set the coloring to a potential gradient, based on the values.
+            i.	For example:
+                1.	0% to 2% red
+                2.	2.1% to 4% light red
+                3.	4.1% to 6% 
+                4.	6.1% to 8% orange
+                5.	8.1% to 10% yellow
+                6.	10.1% to 12%
+                7.	12.1% to 14% dark green
+                8.	14.1% to 15% green
+                c.	The specifics of the gradient should be sent later by Crova.
+Proposed deadline: Friday, July 6
+
+ 
+PROPOSED UPDATES, PHASE 2
+Allow customization of data that is shown
+6.	User can set the start and end date for which to show data 
+        a.	default = 10 days (starting on D until D -9)
+7.	User can choose the sender for which to show data
+        a.	default = all senders
+8.	User can choose to display data for "unique openings", "openings", "unique clicks", "clicks"
+        a.	and “deliv” being (delivered amount / sent amount [delivered + softbounces + hardbounces or event “sent”] * 100)
+9.	Write tests that can be used after future updates to ensure that all of the above features are still working correctly.
+
+Proposed deadline: Wednesday, July 11 
+
+PROPOSED UPDATES, PHASE 3
+View for TWebhooks
+10.	Repeat phase 2 features for TWebhooks
+11.	Write tests that can be used after future updates to ensure that all of the above features are still working correctly.
+
+Proposed deadline: Friday, July 13
+
+PROPOSED UPDATES, PHASE 4
+Users and back-end
+12.	Write back-end methods to ensure that unauthorized users cannot access the data views.
+13.	Implement a login page 
+14.	Implement a logout feature
+15.	Write tests that can be used after future updates to ensure that all of the above features are still working correctly.
+Note: These tasks can be done more quickly with the devise gem. I prefer to code these features manually to allow for greater customization in the future of the app.
+
+Proposed deadline: Monday, July 16
+
+Counter-proposed cost for all four phases: $365
+$180 before Z begins work
+$185 after Z completes work
+
+For future updates:
+Article for performance with enormous databases.
+https://chaione.com/blog/dealing-massive-data-rails/
