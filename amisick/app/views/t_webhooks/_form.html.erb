@@ -1,0 +1,107 @@
+<%= form_with(model: t_webhook, local: true) do |form| %>
+  <% if t_webhook.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(t_webhook.errors.count, "error") %> prohibited this t_webhook from being saved:</h2>
+
+      <ul>
+      <% t_webhook.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :user %>
+    <%= form.text_field :user %>
+  </div>
+
+  <div class="field">
+    <%= form.label :event %>
+    <%= form.text_field :event %>
+  </div>
+
+  <div class="field">
+    <%= form.label :email %>
+    <%= form.text_field :email %>
+  </div>
+
+  <div class="field">
+    <%= form.label :hook_id %>
+    <%= form.text_field :hook_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :date %>
+    <%= form.date_select :date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ts %>
+    <%= form.text_field :ts %>
+  </div>
+
+  <div class="field">
+    <%= form.label :message_id %>
+    <%= form.text_field :message_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ts_event %>
+    <%= form.text_field :ts_event %>
+  </div>
+
+  <div class="field">
+    <%= form.label :subject %>
+    <%= form.text_field :subject %>
+  </div>
+
+  <div class="field">
+    <%= form.label :tag %>
+    <%= form.text_field :tag %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ts_epoch %>
+    <%= form.text_field :ts_epoch %>
+  </div>
+
+  <div class="field">
+    <%= form.label :teplate_id %>
+    <%= form.text_field :teplate_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :sendin_ip %>
+    <%= form.text_field :sendin_ip %>
+  </div>
+
+  <div class="field">
+    <%= form.label :url %>
+    <%= form.text_field :url %>
+  </div>
+
+  <div class="field">
+    <%= form.label :esp %>
+    <%= form.text_field :esp %>
+  </div>
+
+  <div class="field">
+    <%= form.label :link %>
+    <%= form.text_field :link %>
+  </div>
+
+  <div class="field">
+    <%= form.label :desc %>
+    <%= form.text_field :desc %>
+  </div>
+
+  <div class="field">
+    <%= form.label :reason %>
+    <%= form.text_field :reason %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

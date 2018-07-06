@@ -7,4 +7,6 @@ COPY amisick/Gemfile.lock /amisick/Gemfile.lock
 RUN bundle install
 COPY amisick /amisick
 EXPOSE 3000
+RUN rake assets:precompile
+
 CMD [ "bundle", "exec", "puma", "-C", "config/puma.rb" ]
