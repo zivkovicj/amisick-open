@@ -24,7 +24,10 @@ class MWebhook < ApplicationRecord
     OR m_webhooks.event LIKE ?
     OR m_webhooks.event LIKE ?",
     "delivered", "Hard_bounce", "Soft_bounce" ) }
+  scope :unique_opened, lambda { where("m_webhooks.event LIKE ?", "opened").pluck('email').uniq}
   scope :opened, lambda { where("m_webhooks.event LIKE ?", "opened") }
+  scope :clicked, lambda { where("m_webhooks.event LIKE ?", "click") }
+  scope :unique_click, lambda { where("m_webhooks.event LIKE ?", "click").pluck('email').uniq}
   
   # Limiting
   scope :ten, lambda { limit (10)}

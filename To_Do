@@ -42,6 +42,7 @@ Allow customization of data that is shown
         a.	default = all senders
 8.	User can choose to display data for "unique openings", "openings", "unique clicks", "clicks"
         a.	and “deliv” being (delivered amount / sent amount [delivered + softbounces + hardbounces or event “sent”] * 100)
+                Highlight the button that is currently shown.
 9.	Write tests that can be used after future updates to ensure that all of the above features are still working correctly.
 
 Proposed deadline: Wednesday, July 11 

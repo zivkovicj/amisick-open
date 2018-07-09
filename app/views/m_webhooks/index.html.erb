@@ -2,6 +2,18 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Marketing IP Health</h1>
+
+<% event_button_array = [["Unique Open", "unique_opened"], ["Opened", "opened"],
+  ["Unique Click", "unique_click"], ["Clicked", "clicked"], ["Deliv", "deliverability"]] %>
+
+<table>
+  <% event_button_array.each do |z| %>
+    <th>
+      <%= button_to z[0], {:controller => :m_webhooks, :action => 'index'}, :method => :get, :params => {:event => z[1]} %>
+    </th>  
+  <% end %>
+</table>
+  
 <h2>
   Key &emsp;
   <span class="green_3">&emsp;</span>

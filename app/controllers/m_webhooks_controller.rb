@@ -100,6 +100,7 @@ class MWebhooksController < ApplicationController
   def index
     @m_webhooks = MWebhook.all
     @m_list_of_ips = @m_webhooks.pluck('sending_ip').uniq
+    @event = params[:event] || "unique_opened"
     
     end_date = Date.today
     start_date = Date.today - 10.days
@@ -192,10 +193,10 @@ class MWebhooksController < ApplicationController
     end
   
     def set_sub_count_hash(thip) {
-      gmail_hooks: {opened: a = thip.gmail.opened.size, total_sent: b = thip.gmail.total_sent.size, perc_opened: find_perc(a, b)},
-      hotmail_hooks: {opened: a = thip.hotmail.opened.size, total_sent: b = thip.hotmail.total_sent.size, perc_opened: find_perc(a, b)},
-      yahoo_hooks: {opened: a = thip.yahoo.opened.size, total_sent: b = thip.yahoo.total_sent.size, perc_opened: find_perc(a, b)},
-      other_hooks: {opened: a = thip.other.opened.size, total_sent: b = thip.other.total_sent.size, perc_opened: find_perc(a, b)},
+      gmail_hooks: {opened: a = thip.gmail.send(@event).size, total_sent: b = thip.gmail.total_sent.size, perc_opened: find_perc(a, b)},
+      hotmail_hooks: {opened: a = thip.hotmail.send(@event).size, total_sent: b = thip.hotmail.total_sent.size, perc_opened: find_perc(a, b)},
+      yahoo_hooks: {opened: a = thip.yahoo.send(@event).size, total_sent: b = thip.yahoo.total_sent.size, perc_opened: find_perc(a, b)},
+      other_hooks: {opened: a = thip.other.send(@event).size, total_sent: b = thip.other.total_sent.size, perc_opened: find_perc(a, b)},
      }
     end
     

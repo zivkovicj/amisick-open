@@ -10,10 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_20_113816) do
+ActiveRecord::Schema.define(version: 2018_07_08_203052) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "domain_infos", force: :cascade do |t|
+    t.integer "enabled"
+    t.string "smtp_domain"
+    t.integer "ref_id"
+    t.string "img_rd"
+    t.integer "weight"
+    t.cidr "sending_ip"
+    t.bigint "sender_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["sender_id"], name: "index_domain_infos_on_sender_id"
+  end
 
   create_table "m_webhooks", force: :cascade do |t|
     t.string "event"
@@ -34,6 +47,17 @@ ActiveRecord::Schema.define(version: 2018_06_20_113816) do
     t.string "ts"
     t.bigint "origin_id"
     t.bigint "list_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "senders", force: :cascade do |t|
+    t.string "from_name"
+    t.string "sign_domain"
+    t.string "from_email"
+    t.integer "sib_id"
+    t.integer "active"
+    t.text "domains_data"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -68,4 +92,5 @@ ActiveRecord::Schema.define(version: 2018_06_20_113816) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "domain_infos", "senders"
 end

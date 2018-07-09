@@ -1,0 +1,41 @@
+
+Sent:
+<MWebhook id: 2018068, event: "sent", email: "valdir.brondany@yahoo.com.br", hook_id: 70446, camp_id: 2429, campaign_name: "ABD - Serasa Consumidor - Confilio - Ativos", date_sent: "2018-06
+-25", date_event: "2018-06-25", ts_event: 1529896051, ts_sent: 1529896051, tag: "finance", url: nil, sending_ip: #<IPAddr: IPv4:213.32.165.213/255.255.255.255>, esp: nil, user: nil, reason: "connection timeout", ts: nil, origin_id: nil, list_id: nil, created_at: "2018-06-25 03:07:31", updated_at: "2018-06-25 03:07:31">
+
+Delivered:
+<MWebhook id: 2010340, event: "delivered", email: "jpelais@hotmail.com", hook_id: 70446, camp_id: 2427, campaign_name: "ABD - ET PDF Gestos Internacionais - DGMax - WM Co...", date_sent: "2
+018-06-25", date_event: "2018-06-25", ts_event: 1529891691, ts_sent: 1529891691, tag: "wm", url: nil, sending_ip: #<IPAddr: IPv4:213.32.165.6/255.255.255.255>, esp: "hotmail", user: nil, reason
+: nil, ts: nil, origin_id: nil, list_id: nil, created_at: "2018-06-25 01:54:51", updated_at: "2018-06-25 01:54:51">
+
+Opened:
+<MWebhook id: 876405, event: "opened", email: "mariliailiram2012@gmail.com", hook_id: 70446, camp_id: 2415, campaign_name: "ABD - Jac T40 Sweep - DGMax - Test", date_sent: "2018-06-19", dat
+e_event: "2018-06-20", ts_event: 1529483443, ts_sent: 1529407496, tag: "franchise", url: nil, sending_ip: #<IPAddr: IPv4:153.92.239.29/255.255.255.255>, esp: "gmail", user: nil, reason: nil, ts
+: nil, origin_id: nil, list_id: nil, created_at: "2018-06-20 13:30:43", updated_at: "2018-06-20 13:30:43">
+
+Click:
+<MWebhook id: 2018007, event: "click", email: "graciely1704@gmail.com", hook_id: 70446, camp_id: 2428, campaign_name: "ABD - Serasa Consumidor - Confilio - Ativos", date_sent: "2018-06-22",
+ date_event: "2018-06-25", ts_event: 1529877878, ts_sent: 1529661797, tag: "finance", url: nil, sending_ip: #<IPAddr: IPv4:213.32.165.168/255.255.255.255>, esp: "gmail", user: nil, reason: nil,
+ ts: nil, origin_id: nil, list_id: nil, created_at: "2018-06-25 03:04:38", updated_at: "2018-06-25 03:04:38">
+
+Soft Bounce:
+<MWebhook id: 2018065, event: "soft_bounce", email: "valdir.brondany@yahoo.com.br", hook_id: 70446, camp_id: 2429, campaign_name: "ABD - Serasa Consumidor - Confilio - Ativos", date_sent: "
+2018-06-25", date_event: "2018-06-25", ts_event: 1529896051, ts_sent: 1529896051, tag: "finance", url: nil, sending_ip: #<IPAddr: IPv4:213.32.165.213/255.255.255.255>, esp: "yahoo", user: nil,
+reason: "connection timeout", ts: nil, origin_id: nil, list_id: nil, created_at: "2018-06-25 03:07:31", updated_at: "2018-06-25 03:07:31">
+
+Hard Bounce:
+<MWebhook id: 2009855, event: "hard_bounce", email: "geisapereira1989@hotmail.com", hook_id: 70446, camp_id: 2427, campaign_name: "ABD - ET PDF Gestos Internacionais - DGMax - WM Co...", da
+te_sent: "2018-06-25", date_event: "2018-06-25", ts_event: 1529891687, ts_sent: 1529891687, tag: "wm", url: nil, sending_ip: #<IPAddr: IPv4:213.32.165.6/255.255.255.255>, esp: "hotmail", user:
+nil, reason: "550 5.5.0 Requested action not taken: mailbox unav...", ts: nil, origin_id: nil, list_id: nil, created_at: "2018-06-25 01:54:47", updated_at: "2018-06-25 01:54:47">
+
+Unsubscribe:
+<MWebhook id: 2011228, event: "unsubscribe", email: "luzseguranca@yahoo.com.br", hook_id: 70446, camp_id: 2427, campaign_name: "ABD - ET PDF Gestos Internacionais - DGMax - WM Co...", date_
+sent: "2018-06-23", date_event: "2018-06-25", ts_event: 1529887892, ts_sent: 1529755256, tag: "wm", url: nil, sending_ip: nil, esp: "yahoo", user: nil, reason: nil, ts: nil, origin_id: nil, lis
+t_id: nil, created_at: "2018-06-25 02:51:32", updated_at: "2018-06-25 02:51:32">
+
+Spam:
+<MWebhook id: 1897511, event: "spam", email: "heitorgdc@hotmail.com", hook_id: 70446, camp_id: 2427, campaign_name: "ABD - ET PDF Gestos Internacionais - DGMax - WM Co...", date_sent: "2018
+-06-22", date_event: "2018-06-24", ts_event: 1529867496, ts_sent: 1529675715, tag: "wm", url: nil, sending_ip: nil, esp: "hotmail", user: nil, reason: "Hotmail FBL : User Reported spam to messa
+ge id 242...", ts: nil, origin_id: nil, list_id: nil, created_at: "2018-06-24 19:11:36", updated_at: "2018-06-24 19:11:36">
+webhook-exampes.txt
+Displaying webhook-exampes.txt.

@@ -1,6 +1,36 @@
 
 base_date = Date.today
 
+
+
+sender_list = [
+  ["A Boa do Dia !", "qualaboa.net", "aboadodia@qualaboa.net", 4, 1, 
+    ["{\"enabled\"=>1, \"smtp_domain\"=>\"newsletter2.qualaboa.net\", \"ref_id\"=>4, \"weight\"=>\"22\", \"img_rd\"=>\"img.newsletter2.qualaboa.net\", \"ip\"=>\"153.92.251.118\"}",
+   "{\"enabled\"=>1, \"smtp_domain\"=>\"news.qualaboa.net\", \"ref_id\"=>4, \"weight\"=>\"30\", \"img_rd\"=>\"img.news.qualaboa.net\", \"ip\"=>\"153.92.239.29\"}",
+   "{\"enabled\"=>1, \"smtp_domain\"=>\"newsletter.qualaboa.net\", \"ref_id\"=>4, \"weight\"=>\"25\", \"img_rd\"=>\"img.newsletter.qualaboa.net\", \"ip\"=>\"153.92.239.141\"}",
+   "{\"enabled\"=>1, \"smtp_domain\"=>\"newsletter4.qualaboa.net\", \"ref_id\"=>4, \"weight\"=>\"23\", \"img_rd\"=>\"img.newsletter4.qualaboa.net\", \"ip\"=>\"213.32.165.168\"}"]],
+   
+   ["Brasilia!", "qualaboa.net", "aboadodia@qualaboa.net", 4, 1, 
+    ["{\"enabled\"=>1, \"smtp_domain\"=>\"newsletter2.qualaboa.net\", \"ref_id\"=>4, \"weight\"=>\"22\", \"img_rd\"=>\"img.newsletter2.qualaboa.net\", \"ip\"=>\"153.92.251.118\"}",
+   "{\"enabled\"=>1, \"smtp_domain\"=>\"news.qualaboa.net\", \"ref_id\"=>4, \"weight\"=>\"30\", \"img_rd\"=>\"img.news.qualaboa.net\", \"ip\"=>\"153.92.239.29\"}",
+   "{\"enabled\"=>1, \"smtp_domain\"=>\"newsletter.qualaboa.net\", \"ref_id\"=>4, \"weight\"=>\"25\", \"img_rd\"=>\"img.newsletter.qualaboa.net\", \"ip\"=>\"153.92.239.141\"}",
+   "{\"enabled\"=>1, \"smtp_domain\"=>\"newsletter4.qualaboa.net\", \"ref_id\"=>4, \"weight\"=>\"23\", \"img_rd\"=>\"img.newsletter4.qualaboa.net\", \"ip\"=>\"213.32.165.168\"}"]]
+]
+
+sender_list.each do |from_name, sign_domain, from_email, sib_id, active, domains_data|
+  Sender.create(from_name: from_name, sign_domain: sign_domain, sib_id: sib_id, active: active, domains_data: domains_data)
+end
+
+domain_info_list = [
+  [1, "newsletter2.qualaboa.net", 4, "img.newsletter2.qualaboa.net", 22, "153.92.251.118", 1],
+  [1, "newsletter2.qualaboa.net", 4, "img.newsletter2.qualaboa.net", 22, "213.32.165.239", 1],
+  [1, "newsletter2.qualaboa.net", 4, "img.newsletter2.qualaboa.net", 22, "77.32.131.45", 2]
+]
+
+domain_info_list.each do |enabled, smtp_domain, ref_id, img_rd, weight, sending_ip, sender_id|
+  DomainInfo.create(enabled: enabled, smtp_domain: smtp_domain, ref_id: ref_id, img_rd: img_rd, weight: weight, sending_ip: sending_ip, sender_id: sender_id)
+end
+
 m_webhook_list = [
   # First Day
   # First IP
@@ -8,6 +38,8 @@ m_webhook_list = [
   [ "delivered", "aaab@gmail.com",   5, 6, "awesome_campaign", (base_date - 8.days), (base_date - 8.days), 5, 5, "tag", "www.tacobell.com", "192.0.2.255", "gmail",   "crova", "delivered", "string", 5, 5 ],
   [ "delivered", "aaac@gmail.com",   5, 6, "awesome_campaign", (base_date - 8.days), (base_date - 6.days), 5, 5, "tag", "www.tacobell.com", "192.0.2.255", "gmail",   "crova", "delivered", "string", 5, 5 ],
   [ "opened"   , "aaac@gmail.com",   5, 6, "awesome_campaign", (base_date - 8.days), (base_date - 5.days), 5, 5, "tag", "www.tacobell.com", "192.0.2.255", "gmail",   "crova", "opened"   , "string", 5, 5 ],
+  [ "click"    , "aaac@gmail.com",   5, 6, "awesome_campaign", (base_date - 8.days), (base_date - 5.days), 5, 5, "tag", "www.tacobell.com", "192.0.2.255", "gmail",   "crova", "click"   , "string", 5, 5 ],
+  [ "click"    , "aaac@gmail.com",   5, 6, "awesome_campaign", (base_date - 8.days), (base_date - 5.days), 5, 5, "tag", "www.tacobell.com", "192.0.2.255", "gmail",   "crova", "click"   , "string", 5, 5 ],
   [ "delivered", "aaad@gmail.com",   5, 6, "awesome_campaign", (base_date - 8.days), (base_date - 6.days), 5, 5, "tag", "www.tacobell.com", "192.0.2.255", "gmail",   "crova", "delivered", "string", 5, 5 ],
   [ "delivered", "aaae@gmail.com",   5, 6, "awesome_campaign", (base_date - 8.days), (base_date - 8.days), 5, 5, "tag", "www.tacobell.com", "192.0.2.255", "gmail",   "crova", "delivered", "string", 5, 5 ],
   [ "delivered", "aaaf@gmail.com",   5, 6, "awesome_campaign", (base_date - 8.days), (base_date - 8.days), 5, 5, "tag", "www.tacobell.com", "192.0.2.255", "gmail",   "crova", "delivered", "string", 5, 5 ],
@@ -135,6 +167,7 @@ m_webhook_list = [
   [ "delivered", "aaae@gmail.com",   5, 6, "awesome_campaign", (base_date - 6.days), (base_date - 6.days), 5, 5, "tag", "www.tacobell.com", "192.0.2.255", "gmail",   "crova", "delivered", "string", 5, 5 ],
   [ "delivered", "aaaf@gmail.com",   5, 6, "awesome_campaign", (base_date - 6.days), (base_date - 6.days), 5, 5, "tag", "www.tacobell.com", "192.0.2.255", "gmail",   "crova", "delivered", "string", 5, 5 ],
   [ "delivered", "aaag@gmail.com",   5, 6, "awesome_campaign", (base_date - 6.days), (base_date - 6.days), 5, 5, "tag", "www.tacobell.com", "192.0.2.255", "gmail",   "crova", "delivered", "string", 5, 5 ],
+  [ "opened"   , "aaag@gmail.com",   5, 6, "awesome_campaign", (base_date - 6.days), (base_date - 5.days), 5, 5, "tag", "www.tacobell.com", "192.0.2.255", "gmail",   "crova", "opened"   , "string", 5, 5 ],
   [ "opened"   , "aaag@gmail.com",   5, 6, "awesome_campaign", (base_date - 6.days), (base_date - 5.days), 5, 5, "tag", "www.tacobell.com", "192.0.2.255", "gmail",   "crova", "opened"   , "string", 5, 5 ],
   [ "delivered", "aaah@gmail.com",   5, 6, "awesome_campaign", (base_date - 6.days), (base_date - 6.days), 5, 5, "tag", "www.tacobell.com", "192.0.2.255", "gmail",   "crova", "delivered", "string", 5, 5 ],
   [ "delivered", "aaai@gmail.com",   5, 6, "awesome_campaign", (base_date - 6.days), (base_date - 6.days), 5, 5, "tag", "www.tacobell.com", "192.0.2.255", "gmail",   "crova", "delivered", "string", 5, 5 ],
