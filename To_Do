@@ -30,10 +30,26 @@ Create an organized view to show data results for MWebhooks
                 6.	10.1% to 12%
                 7.	12.1% to 14% dark green
                 8.	14.1% to 15% green
-                c.	The specifics of the gradient should be sent later by Crova.
 Proposed deadline: Friday, July 6
 
- 
+
+PROPOSED UPDATES, PHASE 1.5
+V Write migration files and model files for Sender and DomainInfo
+V Create enough seeds to test views with a large number of m_webhooks
+        22097ms
+        22995ms
+        22876ms
+Rewrite queries to only select columns that are needed
+V Look up .count and .size for very large db
+Is there an SQL aggregation for count? 
+Try skylight.io gem
+In the second case, the uniq method is actually ActiveRecord::QueryMethods#uniq, which adds the DISTINCTkeyword to the generated SQL:
+Try to re-write some queries using raw SQL instead of ActiveRecord
+Try indexing the important columns
+Create test m_webhooks so that full database isn't required for iteration of new features
+Find ways to improve performance with the large database.
+
+
 PROPOSED UPDATES, PHASE 2
 Allow customization of data that is shown
 6.	User can set the start and end date for which to show data 
@@ -71,3 +87,44 @@ $185 after Z completes work
 For future updates:
 Article for performance with enormous databases.
 https://chaione.com/blog/dealing-massive-data-rails/
+
+    
+    
+    
+
+    
+    
+    
+    <% @m_list_of_ips.each_with_index do |ip, index| %>
+  <table class="minimalistBlack">
+    <thead>
+      <tr>
+        <th colspan="9"><%= ip %></th>
+      </tr>
+      <tr>
+        <th>Date</th>
+        <% @esp_list.each do |this_esp| %>
+          <th colspan="2"><%= this_esp.capitalize %></th>
+        <% end %>
+      </tr>
+    </thead>
+    
+    <% @count_array.each do |j| %>
+      <tr>
+        <td><%= j[:this_date] %></td>
+        <% @esp_list.each do |this_esp| %>
+          <td>
+            <%= j[index][:"#{this_esp}_hooks"][:opened] %> / <%= j[index][:"#{this_esp}_hooks"][:total_sent] %> 
+          </td>
+          <% perc_opened = j[index][:"#{this_esp}_hooks"][:perc_opened] %>
+          <td class="<%= set_cell_color(perc_opened) %>">
+            <strong>
+              <%= perc_opened %> %
+            </strong>
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
+  </table>
+  </br>
+<% end %>

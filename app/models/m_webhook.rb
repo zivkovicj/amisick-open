@@ -20,14 +20,14 @@ class MWebhook < ApplicationRecord
   scope :desc, lambda { order("m_webhooks.date_event DESC") }
   
   # Lists Event types => "clicked", "opened"...
-  scope :total_sent, lambda { where("m_webhooks.event LIKE ?
-    OR m_webhooks.event LIKE ?
-    OR m_webhooks.event LIKE ?",
-    "delivered", "Hard_bounce", "Soft_bounce" ) }
-  scope :unique_opened, lambda { where("m_webhooks.event LIKE ?", "opened").pluck('email').uniq}
+  scope :sent, lambda { where("m_webhooks.event LIKE ?" ,"sent") }
+  scope :unique_opened, lambda { where("m_webhooks.event LIKE ?", "opened").select("DISTINCT email") }
   scope :opened, lambda { where("m_webhooks.event LIKE ?", "opened") }
   scope :clicked, lambda { where("m_webhooks.event LIKE ?", "click") }
-  scope :unique_click, lambda { where("m_webhooks.event LIKE ?", "click").pluck('email').uniq}
+  scope :unique_click, lambda { where("m_webhooks.event LIKE ?", "click").select("DISTINCT email")}
+  scope :delivered, lambda { where("m_webhooks.event LIKE ?", "delivered")}
+  
+
   
   # Limiting
   scope :ten, lambda { limit (10)}

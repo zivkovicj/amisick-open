@@ -98,29 +98,37 @@ class MWebhooksController < ApplicationController
   # GET /m_webhooks
   # GET /m_webhooks.json
   def index
-    @m_webhooks = MWebhook.all
-    @m_list_of_ips = @m_webhooks.pluck('sending_ip').uniq
-    @event = params[:event] || "unique_opened"
-    
-    end_date = Date.today
     start_date = Date.today - 10.days
+    end_date = Date.today
     date_range = (end_date - start_date).to_i
-    @count_array = []
+    @date_list = []
     date_range.times do |n|
-      this_date = end_date - n.days
-      today_hooks = MWebhook.where(:date_sent => this_date)
-      @count_array[n] = {:this_date => this_date}
-      @m_list_of_ips.each_with_index do |ip, index|
-        thip = today_hooks.where(:sending_ip => ip)  #Stands for "Today Hooks ip"
-        @count_array[n][index] = set_sub_count_hash(thip)
+      @date_list << start_date + n.days
+    end
+
+    @senders = Sender.all
+    @m_list_of_ips = []
+    @senders.each do |sender|
+      sender.domain_infos.each do |domain_info|
+        @m_list_of_ips << domain_info['sending_ip']
       end
     end
     
-    #@m_opened_list_of_esps = m_opened.ip_5.pluck('esp').uniq
-    #@all_opened = deliv_kpi(MWebhook.opened)
-    #@all_opened = @m_opened.uniq {|date| date.date_event }
-    @all_ip_5 = MWebhook.opened.ip_5.desc.uniq
-    @esp_list = ["gmail","hotmail","yahoo","other"] 
+    @count_array = []
+    this_event = params[:event] || "opened"
+    @event_list = [this_event,"sent"]
+    @esp_list = ["gmail","hotmail","yahoo","other"]
+    @esp_list.each_with_index do |esp, esp_index|
+      @count_array[esp_index] = []
+      2.times do |j|
+        @count_array[esp_index][j] = MWebhook.where("date_sent > ? AND date_sent < ?", start_date.to_date, end_date.to_date)
+                            .send(esp).send(@event_list[j])
+                            .group('date_sent', 'sending_ip').count
+      end
+    end
+    
+    
+    
   end
 
   # GET /m_webhooks/1
@@ -187,18 +195,7 @@ class MWebhooksController < ApplicationController
     def m_webhook_params
       params.require(:m_webhook).permit(:event, :email, :hook_id, :camp_id, :campaign_name, :date_sent, :date_event, :ts_event, :ts_sent, :tag, :url, :sending_ip, :esp, :uer, :reason, :ts, :origin_id, :list_id)
     end
-    
-    def find_perc(a, b)
-      ((1000 * a.to_f / b).ceil / 10.0) if b != 0
-    end
-  
-    def set_sub_count_hash(thip) {
-      gmail_hooks: {opened: a = thip.gmail.send(@event).size, total_sent: b = thip.gmail.total_sent.size, perc_opened: find_perc(a, b)},
-      hotmail_hooks: {opened: a = thip.hotmail.send(@event).size, total_sent: b = thip.hotmail.total_sent.size, perc_opened: find_perc(a, b)},
-      yahoo_hooks: {opened: a = thip.yahoo.send(@event).size, total_sent: b = thip.yahoo.total_sent.size, perc_opened: find_perc(a, b)},
-      other_hooks: {opened: a = thip.other.send(@event).size, total_sent: b = thip.other.total_sent.size, perc_opened: find_perc(a, b)},
-     }
-    end
+
     
     
 end

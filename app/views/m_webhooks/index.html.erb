@@ -4,7 +4,7 @@
 <h1>Marketing IP Health</h1>
 
 <% event_button_array = [["Unique Open", "unique_opened"], ["Opened", "opened"],
-  ["Unique Click", "unique_click"], ["Clicked", "clicked"], ["Deliv", "deliverability"]] %>
+  ["Unique Click", "unique_click"], ["Clicked", "clicked"], ["Deliv", "delivered"]] %>
 
 <table>
   <% event_button_array.each do |z| %>
@@ -26,37 +26,40 @@
   <span class="red_2">&emsp;</span>
 </h2>
 
-<% @m_list_of_ips.each_with_index do |ip, index| %>
+
+</br>
+
+
+
+<% @m_list_of_ips.each do |this_ip| %>
   <table class="minimalistBlack">
     <thead>
-      <tr>
-        <th colspan="9"><%= ip %></th>
-      </tr>
+      <tr><th colspan="5"><%= this_ip %></th></tr>
       <tr>
         <th>Date</th>
-        <% @esp_list.each do |this_esp| %>
-          <th colspan="2"><%= this_esp.capitalize %></th>
+        <% @esp_list.each do |esp| %>
+          <th><%= esp.capitalize %></th>
         <% end %>
       </tr>
     </thead>
-    
-    <% @count_array.each do |j| %>
+    <% @date_list.each do |this_date| %>
       <tr>
-        <td><%= j[:this_date] %></td>
-        <% @esp_list.each do |this_esp| %>
-          <td>
-            <%= j[index][:"#{this_esp}_hooks"][:opened] %> / <%= j[index][:"#{this_esp}_hooks"][:total_sent] %> 
-          </td>
-          <% perc_opened = j[index][:"#{this_esp}_hooks"][:perc_opened] %>
-          <td class="<%= set_cell_color(perc_opened) %>">
-            <strong>
-              <%= perc_opened %> %
-            </strong>
-          </td>
+        <td><%= this_date %></td>
+        <% @esp_list.each_with_index do |esp, esp_index| %>
+          <% num_sent = @count_array[esp_index][1][[this_date, this_ip]] %>
+          <% if num_sent && num_sent > 0 %>
+            <% num_focused = @count_array[esp_index][0][[this_date, this_ip]] %>
+            <% perc = ((1000 * num_focused.to_f) / num_sent).ceil / 10.0 %>
+            <td class="<%= set_cell_color(perc) %>"><%= num_focused %> / <%= num_sent %> = <%= perc %></td>
+          <% else %>
+            <td></td>
+          <% end %>
         <% end %>
       </tr>
     <% end %>
   </table>
   </br>
 <% end %>
+
+
 
