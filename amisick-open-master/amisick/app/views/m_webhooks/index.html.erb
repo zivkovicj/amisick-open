@@ -1,0 +1,68 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Marketing IP Health</h1>
+<table>
+  <tr>
+    <th><%= button_to 'Unique Open' %></th>
+    <th><%= button_to 'Open' %></th>
+    <th><%= button_to 'Unique Click' %></th>
+    <th><%= button_to 'Click' %></th>
+    <th><%= button_to 'Deliv' %></th>
+  </tr>
+</table>
+<table class="minimalistBlack">
+  <tr>
+    <th>IP:</th>
+      <% @ips_to_show.each do |ip| %>
+        <td><%= ip %></td>
+      <% end %>
+  </tr>
+  <tr>
+    <th>Day:</th>
+      <td>
+        <% @esps_to_show.each do |esp| %>
+        <table>
+          <tr>
+          <th><%= esp %></th>
+        </tr>
+        </table>
+        <% end %>
+      </td>
+  </tr>
+    <% @dates_to_show.each do |date| %>
+    <tr>
+      <td><%= date.strftime("%e %b") %></td>
+    </tr>
+  <% end %>
+</table>
+<hr>
+<hr>
+<hr>
+
+<div class="container">
+  <div class="row">
+
+    <div class="col-sm-6 simple-border">
+    <div class="row">
+      <div class="col-sm-3 simple-border">
+        Date
+      </div>
+      <div class="row">
+        <div class="col-sm-2 simple-border">
+          <%= number_with_precision(@current_day[:gmail_opened_ip_1], precision: 2) %> %
+        </div>
+        <div class="col-sm-2 simple-border">
+          <%= number_with_precision(@current_day[:hotmail_opened_ip_1], precision: 2) %> %
+        </div>
+        <div class="col-sm-2 simple-border">
+          <%= number_with_precision(@current_day[:yahoo_opened_ip_1], precision: 2) %> %
+        </div>
+        <div class="col-sm-2 simple-border">
+          <%= number_with_precision(@current_day[:other_opened_ip_1], precision: 2) %> %
+        </div>
+      </div>
+    </div>
+    </div>
+
+  </div>
+</div>

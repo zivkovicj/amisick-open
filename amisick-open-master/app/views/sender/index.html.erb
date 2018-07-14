@@ -1,0 +1,42 @@
+<h1>Senders</h1>
+<hr>
+<div class="container">
+  <div class="row">
+    <table class="minimalistBlack">
+      <tr>
+        <th>Sender</th>
+        <th>IPs | Domains</th>
+        <th>Weight</th>
+        <th>Last Changed on</th>
+        <th>Update</th>
+      </tr>
+      <% @senders.each do |sender| %>
+      <tr>
+        <td><%= sender.from_name %></td>
+        <td>
+          <table>
+            <tr>
+              <% sender.domain_infos.each do |domain_info| %>
+              <td>
+              <%= domain_info['sending_ip'] %> | <%= domain_info['smtp_domain'] %>
+              </td>
+              <% end %>
+            </tr>
+          </table>
+        </td>
+        <td>
+          <table>
+            <tr>
+              <% sender.domain_infos.each do |domain_info| %>
+                <td><%= domain_info['weight'] %> %</td>
+              <% end %>
+            </tr>
+          </table>
+        </td>
+        <td><%= sender.updated_at.strftime('%e, %b') %></td>
+        <td><%= link_to(image_tag("refresh.png", :size => '25x25', :alt => "update"), {:action => 'delayed_fetch'}, :class => 'back-link') %></td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+</div>

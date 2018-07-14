@@ -1,0 +1,41 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  event: MyString
+  email: MyString
+  hook_id: 
+  camp_id: 
+  campaign_name: MyString
+  date_sent: 2018-06-16
+  date_event: 2018-06-16
+  ts_event: 
+  ts_sent: 
+  tag: MyString
+  url: MyString
+  sending_ip: 
+  esp: MyString
+  uer: MyString
+  reason: MyString
+  ts: MyString
+  origin_id: 
+  list_id: 
+
+two:
+  event: MyString
+  email: MyString
+  hook_id: 
+  camp_id: 
+  campaign_name: MyString
+  date_sent: 2018-06-16
+  date_event: 2018-06-16
+  ts_event: 
+  ts_sent: 
+  tag: MyString
+  url: MyString
+  sending_ip: 
+  esp: MyString
+  uer: MyString
+  reason: MyString
+  ts: MyString
+  origin_id: 
+  list_id: 
