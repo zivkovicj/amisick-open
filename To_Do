@@ -49,9 +49,13 @@ Try indexing the important columns
 Create test m_webhooks so that full database isn't required for iteration of new features
 Find ways to improve performance with the large database.
 
+        <%= button_to z[0], {:controller => :m_webhooks, :action => 'index'}, :method => :get, :params => {:event => z[1]} %>
+
+
 
 PROPOSED UPDATES, PHASE 2
 Allow customization of data that is shown
+5.5 Order dates in descending order.
 6.	User can set the start and end date for which to show data 
         a.	default = 10 days (starting on D until D -9)
 7.	User can choose the sender for which to show data
@@ -95,36 +99,3 @@ https://chaione.com/blog/dealing-massive-data-rails/
     
     
     
-    <% @m_list_of_ips.each_with_index do |ip, index| %>
-  <table class="minimalistBlack">
-    <thead>
-      <tr>
-        <th colspan="9"><%= ip %></th>
-      </tr>
-      <tr>
-        <th>Date</th>
-        <% @esp_list.each do |this_esp| %>
-          <th colspan="2"><%= this_esp.capitalize %></th>
-        <% end %>
-      </tr>
-    </thead>
-    
-    <% @count_array.each do |j| %>
-      <tr>
-        <td><%= j[:this_date] %></td>
-        <% @esp_list.each do |this_esp| %>
-          <td>
-            <%= j[index][:"#{this_esp}_hooks"][:opened] %> / <%= j[index][:"#{this_esp}_hooks"][:total_sent] %> 
-          </td>
-          <% perc_opened = j[index][:"#{this_esp}_hooks"][:perc_opened] %>
-          <td class="<%= set_cell_color(perc_opened) %>">
-            <strong>
-              <%= perc_opened %> %
-            </strong>
-          </td>
-        <% end %>
-      </tr>
-    <% end %>
-  </table>
-  </br>
-<% end %>

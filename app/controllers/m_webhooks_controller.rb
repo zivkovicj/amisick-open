@@ -98,12 +98,16 @@ class MWebhooksController < ApplicationController
   # GET /m_webhooks
   # GET /m_webhooks.json
   def index
-    start_date = Date.today - 10.days
-    end_date = Date.today
-    date_range = (end_date - start_date).to_i
+    puts "!!!PARAMS!!!"
+    puts params
+    start_date_param = params[:start_date] || (Date.today - 10.days)
+    start_date = start_date_param.to_date
+    end_date_param = params[:end_date] || Date.today
+    end_date = end_date_param.to_date
+    date_range = (end_date - start_date).to_i + 1
     @date_list = []
     date_range.times do |n|
-      @date_list << start_date + n.days
+      @date_list << end_date - n.days
     end
 
     @senders = Sender.all
@@ -115,20 +119,17 @@ class MWebhooksController < ApplicationController
     end
     
     @count_array = []
-    this_event = params[:event] || "opened"
-    @event_list = [this_event,"sent"]
+    @this_event = params[:event] || "unique_opened"
+    @event_list = [@this_event,"sent"]
     @esp_list = ["gmail","hotmail","yahoo","other"]
     @esp_list.each_with_index do |esp, esp_index|
       @count_array[esp_index] = []
       2.times do |j|
-        @count_array[esp_index][j] = MWebhook.where("date_sent > ? AND date_sent < ?", start_date.to_date, end_date.to_date)
+        @count_array[esp_index][j] = MWebhook.where("date_sent > ? AND date_sent < ?", start_date, end_date)
                             .send(esp).send(@event_list[j])
                             .group('date_sent', 'sending_ip').count
       end
     end
-    
-    
-    
   end
 
   # GET /m_webhooks/1
