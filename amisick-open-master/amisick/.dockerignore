@@ -1,0 +1,4 @@
+# Ignores Dockerfile on docker-compose build command
+Dockerfile
+# Ignores docker-compose.yml
+docker-compose.yml

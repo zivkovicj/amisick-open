@@ -1,0 +1,107 @@
+<%= form_with(model: m_webhook, local: true) do |form| %>
+  <% if m_webhook.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(m_webhook.errors.count, "error") %> prohibited this m_webhook from being saved:</h2>
+
+      <ul>
+      <% m_webhook.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :event %>
+    <%= form.text_field :event %>
+  </div>
+
+  <div class="field">
+    <%= form.label :email %>
+    <%= form.text_field :email %>
+  </div>
+
+  <div class="field">
+    <%= form.label :hook_id %>
+    <%= form.text_field :hook_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :camp_id %>
+    <%= form.text_field :camp_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :campaign_name %>
+    <%= form.text_field :campaign_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :date_sent %>
+    <%= form.date_select :date_sent %>
+  </div>
+
+  <div class="field">
+    <%= form.label :date_event %>
+    <%= form.date_select :date_event %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ts_event %>
+    <%= form.text_field :ts_event %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ts_sent %>
+    <%= form.text_field :ts_sent %>
+  </div>
+
+  <div class="field">
+    <%= form.label :tag %>
+    <%= form.text_field :tag %>
+  </div>
+
+  <div class="field">
+    <%= form.label :url %>
+    <%= form.text_field :url %>
+  </div>
+
+  <div class="field">
+    <%= form.label :sending_ip %>
+    <%= form.text_field :sending_ip %>
+  </div>
+
+  <div class="field">
+    <%= form.label :esp %>
+    <%= form.text_field :esp %>
+  </div>
+
+  <div class="field">
+    <%= form.label :uer %>
+    <%= form.text_field :uer %>
+  </div>
+
+  <div class="field">
+    <%= form.label :reason %>
+    <%= form.text_field :reason %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ts %>
+    <%= form.text_field :ts %>
+  </div>
+
+  <div class="field">
+    <%= form.label :origin_id %>
+    <%= form.text_field :origin_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :list_id %>
+    <%= form.text_field :list_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
