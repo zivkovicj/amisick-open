@@ -36,9 +36,6 @@ Proposed deadline: Friday, July 6
 PROPOSED UPDATES, PHASE 1.5
 V Write migration files and model files for Sender and DomainInfo
 V Create enough seeds to test views with a large number of m_webhooks
-        22097ms
-        22995ms
-        22876ms
 Rewrite queries to only select columns that are needed
 V Look up .count and .size for very large db
 Is there an SQL aggregation for count? 
@@ -55,21 +52,29 @@ Find ways to improve performance with the large database.
 
 PROPOSED UPDATES, PHASE 2
 Allow customization of data that is shown
-5.5 Order dates in descending order.
-6.	User can set the start and end date for which to show data 
-        a.	default = 10 days (starting on D until D -9)
+V 5.5 Order dates in descending order.
+6.	V User can set the start and end date for which to show data 
+        V a.	default = 10 days (starting on D until D -9)
 7.	User can choose the sender for which to show data
-        a.	default = all senders
-8.	User can choose to display data for "unique openings", "openings", "unique clicks", "clicks"
-        a.	and “deliv” being (delivered amount / sent amount [delivered + softbounces + hardbounces or event “sent”] * 100)
+                Select box will offer all available e-mail addresses from senders
+                Will also offer an "all" option, which will be the default
+                If a sender is chosen, the data tables will only show the ip_addresses associated with that sender
+8.	V User can choose to display data for "unique openings", "openings", "unique clicks", "clicks"
+        V a.	and “deliv” being (delivered amount / sent amount [delivered + softbounces + hardbounces or event “sent”] * 100)
                 Highlight the button that is currently shown.
 9.	Write tests that can be used after future updates to ensure that all of the above features are still working correctly.
+
+The example t_webhook that you sent to me included columns for :sender_id and :domain_info_id
+The app's database did not yet have these column. So I wrote a migration to add them.
+Will need to migrate your production database to fix two columns from the TWebhook model that had spelling errors in the old versions
 
 Proposed deadline: Wednesday, July 11 
 
 PROPOSED UPDATES, PHASE 3
 View for TWebhooks
 10.	Repeat phase 2 features for TWebhooks
+        TWebhooks seems to have a possible event for "unique_opened", so I scoped it based on that as the event name.
+        However, there wasn't a "unique_click" in the list of possible events that you sent me, so I used an SQL modifier in the scope.
 11.	Write tests that can be used after future updates to ensure that all of the above features are still working correctly.
 
 Proposed deadline: Friday, July 13
@@ -88,9 +93,6 @@ Counter-proposed cost for all four phases: $365
 $180 before Z begins work
 $185 after Z completes work
 
-For future updates:
-Article for performance with enormous databases.
-https://chaione.com/blog/dealing-massive-data-rails/
 
     
     

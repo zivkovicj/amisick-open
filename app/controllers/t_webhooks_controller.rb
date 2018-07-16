@@ -2,6 +2,8 @@ class TWebhooksController < ApplicationController
   before_action :set_t_webhook, only: [:show, :edit, :update, :destroy]
   protect_from_forgery with: :null_session
 
+  include WebhookMethods
+
   def sib_webhook
     # If the body contains the Hook id parameter...
   if params[:id].present?
@@ -71,7 +73,26 @@ class TWebhooksController < ApplicationController
   # GET /t_webhooks
   # GET /t_webhooks.json
   def index
-    @t_webhooks = TWebhook.all
+    if params[:type] == "m_webhooks"
+      redirect_to m_webhooks_path(:start_date => params[:start_date], :end_date => params[:end_date], :event => params[:event]) 
+      return
+    end
+    
+    set_dates
+    set_ip_list
+    
+    @count_array = []
+    @this_event = params[:event] || "unique_opened"
+    @event_list = [@this_event,"sent"]
+    @esp_list = ["gmail","hotmail","yahoo","other"]
+    @esp_list.each_with_index do |esp, esp_index|
+      @count_array[esp_index] = []
+      2.times do |j|
+        @count_array[esp_index][j] = TWebhook.where("date >= ? AND date <= ?", @start_date, @end_date)
+                                      .send(esp).send(@event_list[j])
+                                      .group('date', 'sending_ip').count
+      end
+    end
   end
 
   # GET /t_webhooks/1

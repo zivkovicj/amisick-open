@@ -1,4 +1,5 @@
 class MWebhook < ApplicationRecord
+  
   # Scopes
   # List of IPS => IP #1: 153.92.239.29 / IP #2 = 153.92.239.141
   scope :ip_1, lambda { where("m_webhooks.sending_ip = ?", "153.92.239.29") }

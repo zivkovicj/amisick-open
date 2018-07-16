@@ -1,0 +1,47 @@
+
+<% event_button_array = [["Unique Open", "unique_opened"], ["Opened", "opened"],
+  ["Unique Click", "unique_click"], ["Clicked", "clicked"], ["Deliv", "delivered"]] %>
+
+<%= form_tag( '/m_webhooks', :method => :get ) do %>
+    <table>
+      <tr>
+        <td><label>Type</label></td>
+        <td>
+          <select name="type">
+            <option value="m_webhooks">Marketing</option>
+            <option value="t_webhooks">Transactional</option>
+          </select>
+        </td>
+        <td class="small_spacer"></td>
+        
+        <td><label>Sender</label></td>
+        <td>
+          <select name="sender">
+            <option value="0">All</option>
+            <% Sender.all.each do |sender| %>
+              <option value="<%= sender.id %>"><%= sender.from_email %></option>
+            <% end %>
+          </select>
+        </td>
+        <td class="small_spacer"></td>
+        
+        <td><label>Start Date</label></td>
+        <td><input type="date" id="start_date" name="start_date"
+                 value="<%= Date.today - 10.days %>"
+                 min="2017-01-01" max="<%= Date.yesterday %>" /></td>
+        <td class="small_spacer"></td>
+        
+        <td><label>End Date</label></td>
+        <td><input type="date" id="end_date" name="end_date"
+                 value="<%= Date.today %>"
+                 min="2017-01-01" max="<%= Date.today %>" /></td>
+      </tr>
+    </table>
+    <table>
+      <tr>
+        <% event_button_array.each do |z| %>
+          <td><button type="submit" name="event" value="<%= z[1] %>"><%= z[0] %></button></td>
+        <% end %>
+      </tr>
+    </table>
+<% end %>

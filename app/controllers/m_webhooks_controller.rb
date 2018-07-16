@@ -1,6 +1,8 @@
 class MWebhooksController < ApplicationController
   before_action :set_m_webhook, only: [:show, :edit, :update, :destroy]
   protect_from_forgery with: :null_session
+  
+  include WebhookMethods
 
   def sib_webhook
     # If the body contains the Hook id parameter...
@@ -98,25 +100,13 @@ class MWebhooksController < ApplicationController
   # GET /m_webhooks
   # GET /m_webhooks.json
   def index
-    puts "!!!PARAMS!!!"
-    puts params
-    start_date_param = params[:start_date] || (Date.today - 10.days)
-    start_date = start_date_param.to_date
-    end_date_param = params[:end_date] || Date.today
-    end_date = end_date_param.to_date
-    date_range = (end_date - start_date).to_i + 1
-    @date_list = []
-    date_range.times do |n|
-      @date_list << end_date - n.days
+    if params[:type] == "t_webhooks"
+      redirect_to t_webhooks_path(:start_date => params[:start_date], :end_date => params[:end_date], :event => params[:event]) 
+      return
     end
-
-    @senders = Sender.all
-    @m_list_of_ips = []
-    @senders.each do |sender|
-      sender.domain_infos.each do |domain_info|
-        @m_list_of_ips << domain_info['sending_ip']
-      end
-    end
+    
+    set_dates
+    set_ip_list
     
     @count_array = []
     @this_event = params[:event] || "unique_opened"
@@ -125,9 +115,9 @@ class MWebhooksController < ApplicationController
     @esp_list.each_with_index do |esp, esp_index|
       @count_array[esp_index] = []
       2.times do |j|
-        @count_array[esp_index][j] = MWebhook.where("date_sent > ? AND date_sent < ?", start_date, end_date)
-                            .send(esp).send(@event_list[j])
-                            .group('date_sent', 'sending_ip').count
+        @count_array[esp_index][j] = MWebhook.where("date_sent >= ? AND date_sent <= ?", @start_date, @end_date)
+                                      .send(esp).send(@event_list[j])
+                                      .group('date_sent', 'sending_ip').count
       end
     end
   end

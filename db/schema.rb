@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_08_203052) do
+ActiveRecord::Schema.define(version: 2018_07_15_032449) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -74,8 +74,8 @@ ActiveRecord::Schema.define(version: 2018_07_08_203052) do
     t.string "subject"
     t.string "tag"
     t.bigint "ts_epoch"
-    t.bigint "teplate_id"
-    t.cidr "sendin_ip"
+    t.bigint "template_id"
+    t.cidr "sending_ip"
     t.string "url"
     t.string "esp"
     t.string "link"
@@ -83,6 +83,10 @@ ActiveRecord::Schema.define(version: 2018_07_08_203052) do
     t.string "reason"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "sender_id"
+    t.bigint "domain_info_id"
+    t.index ["domain_info_id"], name: "index_t_webhooks_on_domain_info_id"
+    t.index ["sender_id"], name: "index_t_webhooks_on_sender_id"
   end
 
   create_table "users", force: :cascade do |t|

@@ -12,4 +12,5 @@ Rails.application.routes.draw do
   get "/marketing_webhooks" => "m_webhooks#index"
   # Transac webhooks
   post "/transac_webhooks" => "t_webhooks#sib_webhook"
+  get "/transac_webhooks" => "t_webhooks#index", :as => :t_webhooks_path
 end
