@@ -74,7 +74,8 @@ class TWebhooksController < ApplicationController
   # GET /t_webhooks.json
   def index
     if params[:type] == "m_webhooks"
-      redirect_to m_webhooks_path(:start_date => params[:start_date], :end_date => params[:end_date], :event => params[:event]) 
+      redirect_to m_webhooks_path(:start_date => params[:start_date], :end_date => params[:end_date], :event => params[:event],
+        :type => "m_webhooks") 
       return
     end
     

@@ -2,14 +2,16 @@
 <% event_button_array = [["Unique Open", "unique_opened"], ["Opened", "opened"],
   ["Unique Click", "unique_click"], ["Clicked", "clicked"], ["Deliv", "delivered"]] %>
 
+
+
 <%= form_tag( '/m_webhooks', :method => :get ) do %>
     <table>
       <tr>
         <td><label>Type</label></td>
         <td>
           <select name="type">
-            <option value="m_webhooks">Marketing</option>
-            <option value="t_webhooks">Transactional</option>
+            <option value="m_webhooks" <%= "selected" if params[:type] == "m_webhooks" %> >Marketing</option>
+            <option value="t_webhooks" <%= "selected" if params[:type] == "t_webhooks" %> >Transactional</option>
           </select>
         </td>
         <td class="small_spacer"></td>
@@ -19,28 +21,34 @@
           <select name="sender">
             <option value="0">All</option>
             <% Sender.all.each do |sender| %>
-              <option value="<%= sender.id %>"><%= sender.from_email %></option>
+              <option value="<%= sender.id %>" <%= "selected" if params[:sender].to_i == sender.id %> ><%= sender.from_email %></option>
             <% end %>
           </select>
         </td>
         <td class="small_spacer"></td>
         
         <td><label>Start Date</label></td>
+        <% default_start_value = params[:start_date] || Date.today - 10.days %>
         <td><input type="date" id="start_date" name="start_date"
-                 value="<%= Date.today - 10.days %>"
+                 value="<%= default_start_value %>"
                  min="2017-01-01" max="<%= Date.yesterday %>" /></td>
         <td class="small_spacer"></td>
         
         <td><label>End Date</label></td>
+        <% default_end_value = params[:end_date] || Date.today %>
         <td><input type="date" id="end_date" name="end_date"
-                 value="<%= Date.today %>"
+                 value="<%= default_end_value %>"
                  min="2017-01-01" max="<%= Date.today %>" /></td>
       </tr>
     </table>
     <table>
       <tr>
         <% event_button_array.each do |z| %>
-          <td><button type="submit" name="event" value="<%= z[1] %>"><%= z[0] %></button></td>
+          <div  >
+            <td class="highlight_area <%= "highlighted" if params[:event] == z[1] %>">
+              <button type="submit" name="event" value="<%= z[1] %>"><%= z[0] %></button>
+            </td>
+          </div>
         <% end %>
       </tr>
     </table>

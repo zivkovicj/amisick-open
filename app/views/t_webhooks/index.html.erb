@@ -3,12 +3,6 @@
 
 <h1>Transactional IP Health</h1>
 
-<%= params %>
-<%= @start_date %>
-<%= @count_array %>
-<% TWebhook.where("date >= ? AND date < ?", @start_date, @end_date).each do |z| %>
-    <%= z %>
-<% end %>
 
 <%= render 'shared/option_form' %>
 <%= render 'shared/color_key' %>

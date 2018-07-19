@@ -36,19 +36,9 @@ Proposed deadline: Friday, July 6
 PROPOSED UPDATES, PHASE 1.5
 V Write migration files and model files for Sender and DomainInfo
 V Create enough seeds to test views with a large number of m_webhooks
-Rewrite queries to only select columns that are needed
 V Look up .count and .size for very large db
-Is there an SQL aggregation for count? 
-Try skylight.io gem
-In the second case, the uniq method is actually ActiveRecord::QueryMethods#uniq, which adds the DISTINCTkeyword to the generated SQL:
-Try to re-write some queries using raw SQL instead of ActiveRecord
-Try indexing the important columns
-Create test m_webhooks so that full database isn't required for iteration of new features
+V Try skylight.io gem
 Find ways to improve performance with the large database.
-
-        <%= button_to z[0], {:controller => :m_webhooks, :action => 'index'}, :method => :get, :params => {:event => z[1]} %>
-
-
 
 PROPOSED UPDATES, PHASE 2
 Allow customization of data that is shown
@@ -56,9 +46,9 @@ V 5.5 Order dates in descending order.
 6.	V User can set the start and end date for which to show data 
         V a.	default = 10 days (starting on D until D -9)
 7.	User can choose the sender for which to show data
-                Select box will offer all available e-mail addresses from senders
-                Will also offer an "all" option, which will be the default
-                If a sender is chosen, the data tables will only show the ip_addresses associated with that sender
+                V Select box will offer all available e-mail addresses from all senders
+                V Will also offer an "all" option, which will be the default
+                V If a sender is chosen, the data tables will only show the ip_addresses associated with that sender
 8.	V User can choose to display data for "unique openings", "openings", "unique clicks", "clicks"
         V a.	and “deliv” being (delivered amount / sent amount [delivered + softbounces + hardbounces or event “sent”] * 100)
                 Highlight the button that is currently shown.
@@ -81,6 +71,7 @@ Proposed deadline: Friday, July 13
 
 PROPOSED UPDATES, PHASE 4
 Users and back-end
+11.5   Don't forget to allow the form to remember chosen options.
 12.	Write back-end methods to ensure that unauthorized users cannot access the data views.
 13.	Implement a login page 
 14.	Implement a logout feature
